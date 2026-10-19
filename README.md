@@ -42,20 +42,18 @@ Certifique-se de ter as seguintes ferramentas instaladas em seu ambiente:
 ### Passo a Passo
 
 1. **Clone o repositório:**
-   '''bash
+
    git clone [https://github.com/anamancilha/HealTracking.git](https://github.com/anamancilha/HealTracking.git)
 
 
 2. **Acesse a pasta do projeto:**
 
-'''Bash
 cd HealTracking
 
 ---
 
 3. **Instale as dependências:**
 
-'''Bash
 npm install
 
 ---
@@ -69,5 +67,4 @@ Preencha as credenciais do banco de dados e chaves de API necessárias.
 ---
 5. **Inicie o servidor de desenvolvimento:**
 
-'''Bash
 npm run dev
