@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Tipo de Resíduo</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Novo Tipo de Resíduo</h3>
+            </div>
+            <div class="card-body">
+                <!-- O th:action aponta para o método POST do Controller -->
+                <form th:action="@{/tipos/salvar}" th:object="${tipoResiduo}" method="POST">
+                    
+                    <div class="mb-3">
+                        <label for="nomeTipo" class="form-label">Nome do Tipo / Descrição</label>
+                        <input type="text" id="nomeTipo" th:field="*{nomeTipo}" class="form-label w-100 p-2" placeholder="Ex: Materiais Biológicos, Seringas, etc." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="grupoClassificacao" class="form-label">Grupo de Classificação (ANVISA)</label>
+                        <input type="text" id="grupoClassificacao" th:field="*{grupoClassificacao}" class="form-label w-100 p-2" placeholder="Ex: Grupo A, Grupo B, Grupo E" required>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="/tipos" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Salvar no Banco</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
