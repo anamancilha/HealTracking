@@ -43,7 +43,7 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/salvar")
     public String salvarUsuario(Usuario usuario) {
-        // Nota: Futuramente, aqui criptografaremos a senha com BCrypt antes de salvar
+        
         usuarioRepository.save(usuario);
         return "redirect:/usuarios";
     }

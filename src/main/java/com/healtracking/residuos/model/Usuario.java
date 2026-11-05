@@ -23,7 +23,7 @@ public class Usuario {
     @Column(name = "perfil", nullable = false)
     private String perfil; // Valores: ADMIN, GERADOR, TRANSPORTADOR, TRATAMENTO
 
-    // OPCIONAL: Vinculações diretas para o sistema saber a qual empresa esse usuário pertence
+    
     @ManyToOne
     @JoinColumn(name = "id_gerador")
     private Gerador gerador;

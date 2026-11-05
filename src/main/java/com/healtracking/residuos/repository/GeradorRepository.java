@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GeradorRepository extends JpaRepository<Gerador, Long> {
-    // Prontinho. Sem erros de digitação!
 }

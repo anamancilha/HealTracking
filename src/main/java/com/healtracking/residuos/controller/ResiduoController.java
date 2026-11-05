@@ -41,7 +41,7 @@ public class ResiduoController {
     // Salvar e definir o status inicial automaticamente como "Armazenado"
     @PostMapping("/residuos/salvar")
     public String salvarResiduo(Residuo residuo) {
-        residuo.setStatus("Armazenado"); // Todo lixo começa armazenado no hospital
+        residuo.setStatus("Armazenado"); // Todo lixo começa armazenado no hospital ou clínica
         residuoRepository.save(residuo);
         return "redirect:/residuos";
     }

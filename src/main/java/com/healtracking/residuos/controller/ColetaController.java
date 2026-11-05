@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class ColetaController { // Corrigido para corresponder ao nome do arquivo
+public class ColetaController { 
 
     @Autowired
-    private ColetaRepository coletaRepository; // Corrigido de 'evitaRepository' para 'coletaRepository'
+    private ColetaRepository coletaRepository; 
 
     @Autowired
     private ResiduoRepository residuoRepository;

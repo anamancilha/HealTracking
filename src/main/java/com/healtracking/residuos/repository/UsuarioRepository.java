@@ -8,6 +8,5 @@ import java.util.Optional;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     
-    // O Spring Data gera automaticamente o SQL de busca por e-mail apenas por causa do nome do método!
     Optional<Usuario> findByEmail(String email);
 }
