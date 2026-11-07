@@ -15,6 +15,7 @@
         <div class="card-body">
             <!-- O th:action aponta para o método POST do Controller -->
             <form th:action="@{/tipos/salvar}" th:object="${tipoResiduo}" method="POST">
+                <input type="hidden" th:field="*{idTipoResiduo}" />
 
                 <div class="mb-3">
                     <label for="nomeTipo" class="form-label">Nome do Tipo / Descrição</label>
