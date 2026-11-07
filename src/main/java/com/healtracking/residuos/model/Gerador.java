@@ -26,7 +26,7 @@ public class Gerador {
     public String getRazaoSocial() { return razaoSocial; }
     public void setRazaoSocial(String razaoSocial) { this.razaoSocial = razaoSocial; }
     public String getTipoEstabelecimento() { return tipoEstabelecimento; }
-    public void setTipoEstablishment(String tipoEstabelecimento) { this.tipoEstabelecimento = tipoEstabelecimento; }
+    public void setTipoEstabelecimento(String tipoEstabelecimento) { this.tipoEstabelecimento = tipoEstabelecimento; }
     public String getCnpj() { return cnpj; }
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 }
