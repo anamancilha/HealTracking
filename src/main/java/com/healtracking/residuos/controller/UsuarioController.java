@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UsuarioController {
 
     @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
@@ -43,6 +46,9 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/salvar")
     public String salvarUsuario(Usuario usuario) {
+        // Criptografa a senha antes de mandar para o MySQL
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
         
         usuarioRepository.save(usuario);
         return "redirect:/usuarios";

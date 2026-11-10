@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Gerenciamento de Resíduos</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body class="bg-light d-flex align-items-center" style="height: 100vh;">
+    <div class="container">
+        <div class="card shadow mx-auto" style="max-width: 400px;">
+            <div class="card-header bg-success text-white text-center">
+                <h4 class="mb-0">Acesso ao Sistema</h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- Mensagem de erro se errar senha/email -->
+                <div th:if="${param.error}" class="alert alert-danger text-center">
+                    E-mail ou senha inválidos.
+                </div>
+
+                <!-- Mensagem ao sair do sistema -->
+                <div th:if="${param.logout}" class="alert alert-info text-center">
+                    Você saiu do sistema com sucesso.
+                </div>
+
+                <!-- O Spring Security exige que o action seja /login e os names sejam username e password -->
+                <form th:action="@{/login}" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">E-mail</label>
+                        <input type="email" id="username" name="username" class="form-control" placeholder="seu@email.com" required autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Sua senha" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Entrar</button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="/usuarios/novo" class="text-decoration-none">Primeiro acesso? Cadastre-se aqui</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
