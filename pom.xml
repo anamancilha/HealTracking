@@ -78,10 +78,23 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- Biblioteca OpenPDF para gerar relatórios em PDF -->
+		<dependency>
+    		<groupId>com.github.librepdf</groupId>
+    		<artifactId>openpdf</artifactId>
+    		<version>1.3.30</version>
+		</dependency>
+		<!-- Biblioteca Apache Commons CSV para exportar planilhas para Excel -->
+		<dependency>	
+    		<groupId>org.apache.commons</groupId>
+    		<artifactId>commons-csv</artifactId>
+    		<version>1.10.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
