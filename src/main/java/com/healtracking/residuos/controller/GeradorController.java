@@ -1,5 +1,7 @@
 package com.healtracking.residuos.controller;
 
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import com.healtracking.residuos.model.Gerador;
 import com.healtracking.residuos.repository.GeradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,12 @@ public class GeradorController {
 
     // Salvar o gerador no MySQL e redirecionar
     @PostMapping("/geradores/salvar")
-    public String salvarGerador(Gerador gerador) {
+    public String salvarGerador(@Valid Gerador gerador, BindingResult result) {
+        // Se houver algum erro (ex: CNPJ falso ou campo em branco), volta para o formulário
+        if (result.hasErrors()) {
+            return "cadastro-gerador";
+        }
+        
         geradorRepository.save(gerador);
         return "redirect:/geradores";
     }
