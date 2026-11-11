@@ -1,6 +1,8 @@
 package com.healtracking.residuos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.LocalDate;
 
 @Entity
@@ -12,26 +14,29 @@ public class Residuo {
     @Column(name = "id_residuo")
     private Long idResiduo;
 
+    @NotNull(message = "O peso é obrigatório.")
+    @Positive(message = "O peso deve ser maior que zero.")
     @Column(name = "peso_kg", nullable = false)
     private Double pesoKg;
 
+    @NotNull(message = "A data de geração é obrigatória.")
     @Column(name = "data_geracao", nullable = false)
     private LocalDate dataGeracao;
 
     @Column(name = "status", nullable = false)
-    private String status; // Ex: Armazenado, Coletado, Tratado
+    private String status;
 
-    // RELACIONAMENTO: Muitos resíduos pertencem a um Gerador
+    @NotNull(message = "Selecione um estabelecimento gerador.")
     @ManyToOne
     @JoinColumn(name = "id_gerador", nullable = false)
     private Gerador gerador;
 
-    // RELACIONAMENTO: Muitos resíduos pertencem a um Tipo de Resíduo
+    @NotNull(message = "Selecione o tipo de resíduo.")
     @ManyToOne
     @JoinColumn(name = "id_tipo_residuo", nullable = false)
     private TipoResiduo tipoResiduo;
 
-    // --- GETTERS E SETTERS ---
+    // GETTERS E SETTERS
     public Long getIdResiduo() { return idResiduo; }
     public void setIdResiduo(Long idResiduo) { this.idResiduo = idResiduo; }
     public Double getPesoKg() { return pesoKg; }
