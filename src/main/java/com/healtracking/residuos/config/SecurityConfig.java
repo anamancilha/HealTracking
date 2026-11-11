@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests((requests) -> requests
                 // Libera arquivos estáticos (Bootstrap, imagens) e a tela de cadastro inicial de usuário
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/usuarios/novo", "/usuarios/salvar").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/usuarios/novo", "/usuarios/salvar", "/relatorios/**").permitAll()
                 // Exemplo de bloqueio por perfil: só ADMIN gerencia tipos de resíduos
                 .requestMatchers("/tipos/**").hasRole("ADMIN")
                 // Qualquer outra página do sistema exige que o usuário esteja logado

@@ -1,6 +1,8 @@
 package com.healtracking.residuos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 @Entity
 @Table(name = "gerador")
@@ -11,16 +13,20 @@ public class Gerador {
     @Column(name = "id_gerador")
     private Long idGerador;
 
+    @NotBlank(message = "A razão social é obrigatória.")
     @Column(name = "razao_social", nullable = false)
     private String razaoSocial;
 
+    @NotBlank(message = "O tipo de estabelecimento é obrigatório.")
     @Column(name = "tipo_estabelecimento", nullable = false)
-    private String tipoEstabelecimento; // Ex: Hospital, Clínica, Laboratório
+    private String tipoEstabelecimento;
 
+    @NotBlank(message = "O CNPJ é obrigatório.")
+    @CNPJ(message = "Informe um CNPJ válido.") // Calcula e valida o dígito verificador
     @Column(name = "cnpj", nullable = false, unique = true)
     private String cnpj;
 
-    // --- GETTERS E SETTERS ---
+    // GETTERS E SETTERS ---
     public Long getIdGerador() { return idGerador; }
     public void setIdGerador(Long idGerador) { this.idGerador = idGerador; }
     public String getRazaoSocial() { return razaoSocial; }
