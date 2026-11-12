@@ -16,28 +16,44 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                // Libera arquivos estáticos (Bootstrap, imagens) e a tela de cadastro inicial de usuário
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/usuarios/novo", "/usuarios/salvar", "/relatorios/**").permitAll()
-                // Exemplo de bloqueio por perfil: só ADMIN gerencia tipos de resíduos
-                .requestMatchers("/tipos/**").hasRole("ADMIN")
-                // Qualquer outra página do sistema exige que o usuário esteja logado
+                // ROTAS PÚBLICAS: Apenas arquivos visuais (Bootstrap/JS) e o cadastro inicial de usuário
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/usuarios/novo", "/usuarios/salvar").permitAll()
+                
+                // REGRAS POR PERFIL 
+                // Apenas o ADMIN gerencia os tipos de resíduos e a lista geral de usuários
+                .requestMatchers("/tipos/**", "/usuarios").hasRole("ADMIN")
+                
+                // Apenas ADMIN ou GERADOR podem lançar novos resíduos
+                .requestMatchers("/residuos/novo", "/residuos/salvar").hasAnyRole("ADMIN", "GERADOR")
+                
+                // Apenas ADMIN ou TRANSPORTADOR registram novas coletas
+                .requestMatchers("/coletas/novo", "/coletas/salvar").hasAnyRole("ADMIN", "TRANSPORTADOR")
+                
+                // Apenas ADMIN ou entidades de TRATAMENTO gerenciam locais de destinação
+                .requestMatchers("/tratamentos/novo", "/tratamentos/salvar").hasAnyRole("ADMIN", "TRATAMENTO")
+                
+                // ROTAS PROTEGIDAS GERAIS: Listagens e Relatórios exigem apenas que o usuário esteja logado (qualquer perfil)
+                .requestMatchers("/relatorios/**", "/geradores/**", "/residuos", "/coletas", "/transportadores/**", "/tratamentos").authenticated()
+                
+                // Qualquer outra rota não mapeada exige autenticação
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
-                .loginPage("/login") // Diz ao Spring para usar a tela em português
-                .defaultSuccessUrl("/geradores", true) // Para onde vai após logar
+                .loginPage("/login")
+                // Após o login, redireciona para a página inicial que seus colegas estão criando
+                .defaultSuccessUrl("/", true) 
                 .permitAll()
             )
-
-            .logout((logout) -> logout.permitAll());
+            .logout((logout) -> logout
+                .logoutSuccessUrl("/login?logout") // Volta para o login com aviso de saída
+                .permitAll()
+            );
 
         return http.build();
     }
 
-    // Criptografa as senhas para não ficarem expostas em texto puro no MySQL
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
-
