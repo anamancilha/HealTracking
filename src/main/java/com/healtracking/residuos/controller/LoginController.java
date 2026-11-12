@@ -10,4 +10,10 @@ public class LoginController {
     public String exibirLogin() {
         return "login"; // Vai buscar o arquivo login.html
     }
+
+    @GetMapping("/")
+    public String exibirHome() {
+        return "index"; // Vai abrir o arquivo index.html da pasta templates
+    }
+
 }
