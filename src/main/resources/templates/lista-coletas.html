@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Coletas - HealTracking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gestão de Coletas</h2>
+        <div>
+            <a th:href="@{/}" class="btn btn-outline-secondary me-2">Início</a>
+            <a th:href="@{/coletas/novo}" class="btn btn-primary">Nova Coleta</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Resíduo ID</th>
+                    <th>Transportador</th>
+                    <th>Tratamento</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${coletas}">
+                    <td th:text="${c.idColeta}"></td>
+                    <td th:text="${c.dataColeta}"></td>
+                    <td th:text="${c.residuo.idResiduo}"></td>
+                    <td th:text="${c.transportador.nome}"></td>
+                    <td th:text="${c.tratamento.nomeLocal}"></td>
+                    <td class="text-end">
+                        <a th:href="@{/coletas/editar/{id}(id=${c.idColeta})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/coletas/excluir/{id}(id=${c.idColeta})}" class="btn btn-sm btn-danger" onclick="return confirm('Tens a certeza?')">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(coletas)}">
+                    <td colspan="6" class="text-center text-muted py-4">Nenhuma coleta registada.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

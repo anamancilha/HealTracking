@@ -15,32 +15,30 @@ public class TipoResiduoController {
     @Autowired
     private TipoResiduoRepository tipoResiduoRepository;
 
-    
     @GetMapping("/tipos")
     public String listarTipos(Model model) {
         model.addAttribute("tipos", tipoResiduoRepository.findAll());
         return "lista-tipos";
     }
 
-    
     @GetMapping("/tipos/novo")
     public String exibirFormularioCadastro(Model model) {
         model.addAttribute("tipoResiduo", new TipoResiduo());
-        return "cadastro-tipo"; 
+        return "cadastro-tipo"; // Certifica-te de que o HTML se chama cadastro-tipo.html
     }
 
-    
     @PostMapping("/tipos/salvar")
     public String salvarTipo(TipoResiduo tipoResiduo) {
         tipoResiduoRepository.save(tipoResiduo);
-        return "redirect:/tipos"; 
+        return "redirect:/tipos";
     }
+
     @GetMapping("/tipos/editar/{id}")
     public String editarTipo(@PathVariable("id") Long id, Model model) {
         TipoResiduo tipoResiduo = tipoResiduoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
         model.addAttribute("tipoResiduo", tipoResiduo);
-        return "cadastro-tipo"; // Reaproveita a tela de cadastro para editar
+        return "cadastro-tipo";
     }
 
     @GetMapping("/tipos/excluir/{id}")

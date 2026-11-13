@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-bold" href="/">HealTracking</a>
+        <div class="d-flex">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-outline-light btn-sm">Sair</button>
+            </form>
+        </div>
     </div>
 </nav>
 
@@ -24,10 +29,10 @@
 
             <div class="row g-3 mt-3">
                 <div class="col-md-3">
-                    <a href="/tipos" class="btn btn-outline-primary w-100 p-3 fw-semibold">Lista de Resíduos</a>
+                    <a href="/residuos" class="btn btn-outline-primary w-100 p-3 fw-semibold">Lista de Resíduos</a>
                 </div>
                 <div class="col-md-3">
-                    <a href="/tipos/novo" class="btn btn-primary w-100 p-3 fw-semibold">Cadastrar Resíduo</a>
+                    <a href="/residuos/novo" class="btn btn-primary w-100 p-3 fw-semibold">Cadastrar Resíduo</a>
                 </div>
                 <div class="col-md-3">
                     <a href="/geradores" class="btn btn-outline-success w-100 p-3 fw-semibold">Lista de Geradores</a>
@@ -36,6 +41,30 @@
                     <a href="/geradores/novo" class="btn btn-success w-100 p-3 fw-semibold">Cadastrar Gerador</a>
                 </div>
             </div>
+
+            <!-- BOTÕES: Coletas e Transportadores -->
+            <div class="row g-3 mt-2">
+                <div class="col-md-3">
+                    <a href="/coletas" class="btn btn-outline-warning w-100 p-3 fw-semibold text-dark">Lista de Coletas</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/coletas/novo" class="btn btn-warning w-100 p-3 fw-semibold text-dark">Cadastrar Coleta</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/transportadores" class="btn btn-outline-secondary w-100 p-3 fw-semibold">Lista de Transportadores</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/transportadores/novo" class="btn btn-secondary w-100 p-3 fw-semibold">Cadastrar Transportador</a>
+                </div>
+            </div>
+
+            <!-- BOTÃO OPCIONAL: Gestão de Tipos (Restrito a Admin) -->
+            <div class="row g-3 mt-2">
+                <div class="col-md-3">
+                    <a href="/tipos" class="btn btn-outline-dark w-100 p-3 fw-semibold">Gerenciar Tipos (Admin)</a>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

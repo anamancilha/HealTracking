@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registar Tratamento - HealTracking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Registar Local de Tratamento</h2>
+
+                    <form th:action="@{/tratamentos/salvar}" th:object="${tratamento}" method="post">
+                        <input type="hidden" th:field="*{idTratamento}">
+
+                        <div class="mb-3">
+                            <label for="nomeLocal" class="form-label">Nome do Local:</label>
+                            <input type="text" id="nomeLocal" th:field="*{nomeLocal}" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="endereco" class="form-label">Endereço:</label>
+                            <input type="text" id="endereco" th:field="*{endereco}" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="telefone" class="form-label">Telefone:</label>
+                            <input type="text" id="telefone" th:field="*{telefone}" class="form-control">
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Salvar Tratamento</button>
+                            <a th:href="@{/tratamentos}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -21,12 +21,16 @@ public class UsuarioDetailsService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
 
-        // Entrega os dados e o perfil (Role) para o Spring Security validar
+        // DEBUG: Imprime na consola do IntelliJ o que exatamente veio da base de dados
+        System.out.println("--> LOGIN: " + usuario.getEmail() + " | PERFIL NO BANCO: [" + usuario.getPerfil() + "]");
+
+        // Garante que vai em maiúsculas para bater certo com o SecurityConfig
+        String perfilFormatado = usuario.getPerfil() != null ? usuario.getPerfil().toUpperCase() : "USER";
+
         return User.builder()
                 .username(usuario.getEmail())
                 .password(usuario.getSenha())
-                .roles(usuario.getPerfil()) 
+                .authorities(perfilFormatado)
                 .build();
     }
 }
-

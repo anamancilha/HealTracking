@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -46,11 +47,43 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/salvar")
     public String salvarUsuario(Usuario usuario) {
-        // Criptografa a senha antes de mandar para o MySQL
-        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaCriptografada);
-        
+        // Se já tiver ID (edição) e a senha vier vazia, podemos manter a senha antiga para não corromper o hash
+        if (usuario.getIdUsuario() != null && (usuario.getSenha() == null || usuario.getSenha().isEmpty())) {
+            Usuario usuarioAntigo = usuarioRepository.findById(usuario.getIdUsuario()).orElse(null);
+            if (usuarioAntigo != null) {
+                usuario.setSenha(usuarioAntigo.getSenha());
+            }
+        } else {
+            // Caso contrário, encripta a nova senha normalmente
+            String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+            usuario.setSenha(senhaCriptografada);
+        }
+
+        if (usuario.getPerfil() == null || usuario.getPerfil().isEmpty()) {
+            usuario.setPerfil("USER");
+        }
+
         usuarioRepository.save(usuario);
+
+        // Se for um novo registo público, redireciona para o login. Se for gestão de admin, pode redirecionar para /usuarios
+        return "redirect:/login?sucesso";
+    }
+
+    @GetMapping("/usuarios/editar/{id}")
+    public String editarUsuario(@PathVariable("id") Long id, Model model) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de utilizador inválido: " + id));
+
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("geradores", geradorRepository.findAll());
+        model.addAttribute("transportadores", transportadorRepository.findAll());
+        model.addAttribute("tratamentos", tratamentoRepository.findAll());
+        return "cadastro-usuario";
+    }
+
+    @GetMapping("/usuarios/excluir/{id}")
+    public String excluirUsuario(@PathVariable("id") Long id) {
+        usuarioRepository.deleteById(id);
         return "redirect:/usuarios";
     }
 }

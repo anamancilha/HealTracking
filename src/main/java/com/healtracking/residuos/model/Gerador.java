@@ -26,6 +26,11 @@ public class Gerador {
     @Column(name = "cnpj", nullable = false, unique = true)
     private String cnpj;
 
+    // Relacionamento com o Utilizador (para o isolamento por dono)
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
     // GETTERS E SETTERS ---
     public Long getIdGerador() { return idGerador; }
     public void setIdGerador(Long idGerador) { this.idGerador = idGerador; }
@@ -35,5 +40,7 @@ public class Gerador {
     public void setTipoEstabelecimento(String tipoEstabelecimento) { this.tipoEstabelecimento = tipoEstabelecimento; }
     public String getCnpj() { return cnpj; }
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }
-}
 
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+}

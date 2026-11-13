@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registar Coleta - HealTracking</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Registar Nova Coleta</h2>
+
+          <form th:action="@{/coletas/salvar}" th:object="${coleta}" method="post">
+            <input type="hidden" th:field="*{idColeta}">
+
+            <div class="mb-3">
+              <label for="dataColeta" class="form-label">Data da Coleta:</label>
+              <input type="date" id="dataColeta" th:field="*{dataColeta}" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="residuo" class="form-label">Resíduo:</label>
+              <select id="residuo" th:field="*{residuo}" class="form-select" required>
+                <option value="">Selecione o Resíduo</option>
+                <option th:each="r : ${residuos}" th:value="${r.idResiduo}" th:text="'Resíduo #' + ${r.idResiduo}"></option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="transportador" class="form-label">Transportador:</label>
+              <select id="transportador" th:field="*{transportador}" class="form-select" required>
+                <option value="">Selecione o Transportador</option>
+                <option th:each="t : ${transportadores}" th:value="${t.idTransportador}" th:text="${t.nome}"></option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="tratamento" class="form-label">Local de Tratamento:</label>
+              <select id="tratamento" th:field="*{tratamento}" class="form-select" required>
+                <option value="">Selecione o Local de Tratamento</option>
+                <option th:each="tr : ${tratamentos}" th:value="${tr.idTratamento}" th:text="${tr.nomeLocal}"></option>
+              </select>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success">Salvar Coleta</button>
+              <a th:href="@{/coletas}" class="btn btn-secondary">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

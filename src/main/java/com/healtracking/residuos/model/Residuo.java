@@ -36,18 +36,30 @@ public class Residuo {
     @JoinColumn(name = "id_tipo_residuo", nullable = false)
     private TipoResiduo tipoResiduo;
 
+    // NOVO: Relacionamento com o Utilizador que registou o resíduo
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
     // GETTERS E SETTERS
     public Long getIdResiduo() { return idResiduo; }
     public void setIdResiduo(Long idResiduo) { this.idResiduo = idResiduo; }
+
     public Double getPesoKg() { return pesoKg; }
     public void setPesoKg(Double pesoKg) { this.pesoKg = pesoKg; }
+
     public LocalDate getDataGeracao() { return dataGeracao; }
     public void setDataGeracao(LocalDate dataGeracao) { this.dataGeracao = dataGeracao; }
+
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
     public Gerador getGerador() { return gerador; }
     public void setGerador(Gerador gerador) { this.gerador = gerador; }
+
     public TipoResiduo getTipoResiduo() { return tipoResiduo; }
     public void setTipoResiduo(TipoResiduo tipoResiduo) { this.tipoResiduo = tipoResiduo; }
-}
 
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+}

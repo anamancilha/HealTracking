@@ -23,15 +23,27 @@ public class Tratamento {
     @Column(name = "endereco", nullable = false)
     private String endereco;
 
+    // Adicionado para vincular ao utilizador logado
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
     // --- GETTERS E SETTERS ---
     public Long getIdTratamento() { return idTratamento; }
     public void setIdTratamento(Long idTratamento) { this.idTratamento = idTratamento; }
+
     public String getNomeEmpresa() { return nomeEmpresa; }
     public void setNomeEmpresa(String nomeEmpresa) { this.nomeEmpresa = nomeEmpresa; }
+
     public String getCnpj() { return cnpj; }
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+
     public String getTipoTratamento() { return tipoTratamento; }
     public void setTipoTratamento(String tipoTratamento) { this.tipoTratamento = tipoTratamento; }
+
     public String getEndereco() { return endereco; }
     public void setEndereco(String endereco) { this.endereco = endereco; }
+
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 }
