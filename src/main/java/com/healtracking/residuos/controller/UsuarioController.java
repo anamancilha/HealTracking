@@ -6,6 +6,7 @@ import com.healtracking.residuos.repository.TransportadorRepository;
 import com.healtracking.residuos.repository.TratamentoRepository;
 import com.healtracking.residuos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UsuarioController {
 
     @Autowired
-    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -47,7 +48,7 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/salvar")
     public String salvarUsuario(Usuario usuario) {
-        // Se já tiver ID (edição) e a senha vier vazia, podemos manter a senha antiga para não corromper o hash
+        // Se já tiver ID (edição) e a senha vier vazia, mantém a senha antiga
         if (usuario.getIdUsuario() != null && (usuario.getSenha() == null || usuario.getSenha().isEmpty())) {
             Usuario usuarioAntigo = usuarioRepository.findById(usuario.getIdUsuario()).orElse(null);
             if (usuarioAntigo != null) {
@@ -59,13 +60,13 @@ public class UsuarioController {
             usuario.setSenha(senhaCriptografada);
         }
 
+        // Define ADMIN automaticamentes
         if (usuario.getPerfil() == null || usuario.getPerfil().isEmpty()) {
-            usuario.setPerfil("USER");
+            usuario.setPerfil("ADMIN");
         }
 
         usuarioRepository.save(usuario);
 
-        // Se for um novo registo público, redireciona para o login. Se for gestão de admin, pode redirecionar para /usuarios
         return "redirect:/login?sucesso";
     }
 

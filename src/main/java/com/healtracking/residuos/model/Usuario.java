@@ -28,7 +28,6 @@ public class Usuario {
     @Column(name = "senha", nullable = false)
     private String senha;
 
-    @NotBlank(message = "Selecione um perfil de acesso.")
     @Column(name = "perfil", nullable = false)
     private String perfil;
 
