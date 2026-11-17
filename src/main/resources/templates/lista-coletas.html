@@ -32,8 +32,8 @@
                 <tr th:each="c : ${coletas}">
                     <td th:text="${c.idColeta}"></td>
                     <td th:text="${c.dataColeta}"></td>
-                    <td th:text="${c.residuo.idResiduo}"></td>
-                    <td th:text="${c.transportador.nome}"></td>
+                    <td th:text="${c.transportador.nomeEmpresa}"></td>
+                    <td th:text="${c.tratamento.nomeEmpresa}"></td>
                     <td th:text="${c.tratamento.nomeLocal}"></td>
                     <td class="text-end">
                         <a th:href="@{/coletas/editar/{id}(id=${c.idColeta})}" class="btn btn-sm btn-warning">Editar</a>
