@@ -1,5 +1,6 @@
 package com.healtracking.residuos.controller;
 
+import com.healtracking.residuos.repository.ResiduoRepository;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import com.healtracking.residuos.model.Gerador;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -22,6 +24,9 @@ public class GeradorController {
 
     @Autowired
     private GeradorRepository geradorRepository;
+
+    @Autowired
+    private ResiduoRepository residuoRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -76,8 +81,18 @@ public class GeradorController {
 
     // Excluir gerador
     @GetMapping("/excluir/{id}")
-    public String excluirGerador(@PathVariable("id") Long id) {
-        geradorRepository.deleteById(id);
+    public String excluirGerador(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Gerador gerador = geradorRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+
+        if (residuoRepository.existsByGerador(gerador)) {
+            redirectAttributes.addFlashAttribute("erro",
+                    "Não é possível excluir este gerador porque existem resíduos vinculados a ele.");
+            return "redirect:/geradores";
+        }
+
+        geradorRepository.delete(gerador);
+        redirectAttributes.addFlashAttribute("sucesso", "Gerador excluído com sucesso!");
         return "redirect:/geradores";
     }
 }

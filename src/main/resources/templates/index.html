@@ -1,67 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealTracking - Gerenciamento de RSS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>HealTracking - Painel Principal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="/">HealTracking</a>
-        <div class="d-flex">
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-light btn-sm">Sair</button>
-            </form>
-        </div>
+<nav class="navbar navbar-dark bg-dark px-4 shadow-sm">
+    <span class="navbar-brand fw-bold mb-0">HealTracking</span>
+    <div class="d-flex align-items-center gap-3">
+        <span class="text-light small opacity-75" th:if="${#authentication != null}" th:text="${#authentication.name}">usuario</span>
+        <form th:action="@{/logout}" method="post" class="m-0">
+            <button type="submit" class="btn btn-outline-light btn-sm">Sair</button>
+        </form>
     </div>
 </nav>
 
-<div class="container my-5">
-    <div class="p-5 mb-4 bg-white rounded-3 shadow-sm border">
-        <div class="container-fluid py-3">
-            <h1 class="display-5 fw-bold text-success">HealTracking</h1>
-            <p class="col-md-8 fs-4 text-muted">Sistema de Gerenciamento de Resíduos de Serviços de Saúde (RSS).</p>
+<div class="container py-5">
+    <div class="card border-0 shadow-sm rounded-3">
+        <div class="card-body p-4 p-md-5">
+            <div class="mb-4">
+                <h1 class="h2 fw-bold text-success mb-1">HealTracking</h1>
+                <p class="text-muted mb-0">Sistema de Gerenciamento de Resíduos de Serviços de Saúde (RSS)</p>
+            </div>
+
             <hr class="my-4">
-            <p class="fs-5">Selecione uma das opções abaixo para gerenciar o sistema:</p>
 
-            <div class="row g-3 mt-3">
-                <div class="col-md-3">
-                    <a href="/residuos" class="btn btn-outline-primary w-100 p-3 fw-semibold">Lista de Resíduos</a>
+            <div class="row g-4">
+                <!-- Módulo 1: Resíduos e Geradores -->
+                <div class="col-md-6">
+                    <div class="p-4 border rounded-3 bg-light h-100">
+                        <h5 class="fw-semibold mb-3">Resíduos e Geradores</h5>
+                        <div class="d-grid gap-2">
+                            <a th:href="@{/residuos}" class="btn btn-outline-primary">Lista de Resíduos</a>
+                            <a th:href="@{/residuos/novo}" class="btn btn-primary">Cadastrar Resíduo</a>
+                            <a th:href="@{/geradores}" class="btn btn-outline-success">Lista de Geradores</a>
+                            <a th:href="@{/geradores/novo}" class="btn btn-success">Cadastrar Gerador</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <a href="/residuos/novo" class="btn btn-primary w-100 p-3 fw-semibold">Cadastrar Resíduo</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="/geradores" class="btn btn-outline-success w-100 p-3 fw-semibold">Lista de Geradores</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="/geradores/novo" class="btn btn-success w-100 p-3 fw-semibold">Cadastrar Gerador</a>
-                </div>
-            </div>
 
-            <!-- BOTÕES: Coletas e Transportadores -->
-            <div class="row g-3 mt-2">
-                <div class="col-md-3">
-                    <a href="/coletas" class="btn btn-outline-warning w-100 p-3 fw-semibold text-dark">Lista de Coletas</a>
+                <!-- Módulo 2: Coletas e Transportadores -->
+                <div class="col-md-6">
+                    <div class="p-4 border rounded-3 bg-light h-100">
+                        <h5 class="fw-semibold mb-3">Coletas e Transportadores</h5>
+                        <div class="d-grid gap-2">
+                            <a th:href="@{/coletas}" class="btn btn-outline-warning text-dark">Lista de Coletas</a>
+                            <a th:href="@{/coletas/novo}" class="btn btn-warning text-dark fw-semibold">Cadastrar Coleta</a>
+                            <a th:href="@{/transportadores}" class="btn btn-outline-secondary">Lista de Transportadores</a>
+                            <a th:href="@{/transportadores/novo}" class="btn btn-secondary">Cadastrar Transportador</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <a href="/coletas/novo" class="btn btn-warning w-100 p-3 fw-semibold text-dark">Cadastrar Coleta</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="/transportadores" class="btn btn-outline-secondary w-100 p-3 fw-semibold">Lista de Transportadores</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="/transportadores/novo" class="btn btn-secondary w-100 p-3 fw-semibold">Cadastrar Transportador</a>
-                </div>
-            </div>
 
-            <!-- BOTÃO OPCIONAL: Gestão de Tipos (Restrito a Admin) -->
-            <div class="row g-3 mt-2">
-                <div class="col-md-3">
-                    <a href="/tipos" class="btn btn-outline-dark w-100 p-3 fw-semibold">Gerenciar Tipos (Admin)</a>
+                <!-- Área Administrativa -->
+                <div class="col-12" sec:authorize="hasRole('ADMIN')">
+                    <div class="p-4 border border-danger-subtle rounded-3 bg-danger-subtle bg-opacity-10">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+                            <div>
+                                <h5 class="fw-semibold text-danger mb-1">Administração do Sistema</h5>
+                                <p class="text-muted small mb-0">Configurações exclusivas para administradores.</p>
+                            </div>
+                            <a th:href="@{/tipos-residuo}" class="btn btn-outline-danger">Gerenciar Tipos (Admin)</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 

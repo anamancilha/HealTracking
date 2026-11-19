@@ -2,32 +2,41 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Gerador - HealTracking</title>
+    <title th:text="${gerador.idGerador != null} ? 'Editar Gerador - HealTracking' : 'Cadastrar Gerador - HealTracking'">Cadastrar Gerador - HealTracking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <div class="container my-5" style="max-width: 600px;">
     <div class="card shadow-sm border-0 p-4">
-        <h2 class="mb-4 text-success fw-bold">Cadastrar Novo Gerador</h2>
+        <h2 class="mb-4 text-success fw-bold"
+            th:text="${gerador.idGerador != null} ? 'Editar Gerador' : 'Cadastrar Novo Gerador'">Cadastrar Novo Gerador</h2>
 
         <form th:action="@{/geradores/salvar}" th:object="${gerador}" method="post">
+            <input type="hidden" th:field="*{idGerador}">
+
             <div class="mb-3">
                 <label for="razaoSocial" class="form-label">Razão Social</label>
                 <input type="text" id="razaoSocial" th:field="*{razaoSocial}" class="form-control" required>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('razaoSocial')}" th:errors="*{razaoSocial}"></div>
             </div>
 
             <div class="mb-3">
                 <label for="tipoEstabelecimento" class="form-label">Tipo de Estabelecimento (Ex: Hospital, Clínica)</label>
                 <input type="text" id="tipoEstabelecimento" th:field="*{tipoEstabelecimento}" class="form-control" required>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('tipoEstabelecimento')}" th:errors="*{tipoEstabelecimento}"></div>
             </div>
 
             <div class="mb-3">
                 <label for="cnpj" class="form-label">CNPJ</label>
-                <input type="text" id="cnpj" th:field="*{cnpj}" class="form-control" required>
+                <input type="text" id="cnpj" th:field="*{cnpj}" class="form-control" placeholder="00.000.000/0000-00" required>
+                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></div>
             </div>
 
             <div class="d-flex justify-content-between">
-                <a href="/" class="btn btn-secondary">Voltar ao Menu</a>
+                <div>
+                    <a th:href="@{/geradores}" class="btn btn-secondary me-2">Cancelar</a>
+                    <a th:href="@{/}" class="btn btn-outline-secondary">Menu</a>
+                </div>
                 <button type="submit" class="btn btn-success">Salvar Gerador</button>
             </div>
         </form>

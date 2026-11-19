@@ -32,9 +32,9 @@
                 <tr th:each="c : ${coletas}">
                     <td th:text="${c.idColeta}"></td>
                     <td th:text="${c.dataColeta}"></td>
-                    <td th:text="${c.transportador.nomeEmpresa}"></td>
-                    <td th:text="${c.tratamento.nomeEmpresa}"></td>
-                    <td th:text="${c.tratamento.nomeLocal}"></td>
+                    <td th:text="${c.residuo != null ? '#' + c.residuo.idResiduo : '-'}"></td>
+                    <td th:text="${c.transportador != null ? c.transportador.nomeEmpresa : '-'}"></td>
+                    <td th:text="${c.tratamento != null ? c.tratamento.nomeEmpresa : '-'}"></td>
                     <td class="text-end">
                         <a th:href="@{/coletas/editar/{id}(id=${c.idColeta})}" class="btn btn-sm btn-warning">Editar</a>
                         <a th:href="@{/coletas/excluir/{id}(id=${c.idColeta})}" class="btn btn-sm btn-danger" onclick="return confirm('Tens a certeza?')">Excluir</a>

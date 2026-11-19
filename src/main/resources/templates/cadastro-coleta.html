@@ -25,7 +25,10 @@
               <label for="residuo" class="form-label">Resíduo:</label>
               <select id="residuo" th:field="*{residuo}" class="form-select" required>
                 <option value="">Selecione o Resíduo</option>
-                <option th:each="r : ${residuos}" th:value="${r.idResiduo}" th:text="'Resíduo #' + ${r.idResiduo}"></option>
+                <option th:each="r : ${residuos}"
+                        th:value="${r.idResiduo}"
+                        th:text="${'#' + r.idResiduo + ' - ' + (r.tipoResiduo != null ? r.tipoResiduo.nomeTipo : 'Sem tipo') + (r.pesoKg != null ? ' (' + r.pesoKg + ' kg)' : '')}">
+                </option>
               </select>
             </div>
 
@@ -33,7 +36,9 @@
               <label for="transportador" class="form-label">Transportador:</label>
               <select id="transportador" th:field="*{transportador}" class="form-select" required>
                 <option value="">Selecione o Transportador</option>
-                <option th:each="t : ${transportadores}" th:value="${t.idTransportador}" th:text="${t.nome}"></option>
+                <option th:each="t : ${transportadores}"
+                        th:value="${t.idTransportador}"
+                        th:text="${t.nomeEmpresa + ' (' + t.numeroLicenca + ')'}"></option>
               </select>
             </div>
 
@@ -41,7 +46,9 @@
               <label for="tratamento" class="form-label">Local de Tratamento:</label>
               <select id="tratamento" th:field="*{tratamento}" class="form-select" required>
                 <option value="">Selecione o Local de Tratamento</option>
-                <option th:each="tr : ${tratamentos}" th:value="${tr.idTratamento}" th:text="${tr.nomeLocal}"></option>
+                <option th:each="tr : ${tratamentos}"
+                        th:value="${tr.idTratamento}"
+                        th:text="${tr.nomeEmpresa + ' - ' + tr.tipoTratamento}"></option>
               </select>
             </div>
 

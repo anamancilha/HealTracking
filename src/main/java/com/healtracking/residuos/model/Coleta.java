@@ -28,7 +28,7 @@ public class Coleta {
     private Tratamento tratamento;
 
     // Adicionado para vincular a coleta ao utilizador logado
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 

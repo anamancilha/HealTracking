@@ -31,15 +31,15 @@ public class Usuario {
     @Column(name = "perfil", nullable = false)
     private String perfil;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_gerador")
     private Gerador gerador;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_transportador")
     private Transportador transportador;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tratamento")
     private Tratamento tratamento;
 
