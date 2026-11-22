@@ -57,14 +57,17 @@
                 </div>
 
                 <!-- Área Administrativa -->
-                <div class="col-12" sec:authorize="hasRole('ADMIN')">
+                <div class="col-12" sec:authorize="hasAuthority('ADMIN')">
                     <div class="p-4 border border-danger-subtle rounded-3 bg-danger-subtle bg-opacity-10">
                         <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
                             <div>
                                 <h5 class="fw-semibold text-danger mb-1">Administração do Sistema</h5>
                                 <p class="text-muted small mb-0">Configurações exclusivas para administradores.</p>
                             </div>
-                            <a th:href="@{/tipos-residuo}" class="btn btn-outline-danger">Gerenciar Tipos (Admin)</a>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a th:href="@{/tipos}" class="btn btn-outline-danger">Gerenciar Tipos (Admin)</a>
+                                <a th:href="@{/usuarios}" class="btn btn-outline-danger">Gerenciar Usuários (Admin)</a>
+                            </div>
                         </div>
                     </div>
                 </div>

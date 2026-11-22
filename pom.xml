@@ -82,6 +82,11 @@
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<!-- Permite usar sec:authorize nos templates Thymeleaf (área de admin) -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
 		<!-- Biblioteca OpenPDF para gerar relatórios em PDF -->
 		<dependency>
     		<groupId>com.github.librepdf</groupId>
